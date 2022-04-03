@@ -20,6 +20,8 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.49.11",
+    "sass-loader": "^12.6.0",
     "styles-loader": "^3.0.0",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2",
