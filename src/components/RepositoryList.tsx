@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import "../styles/repositories.scss"
 
-import { RepositoryItem } from "./RepositoryItem"
+import { IRepository, RepositoryItem } from "./RepositoryItem"
 
 export const RepositoryList = () => {
-    const [repositories, setRepositories] = useState([])
+    const [repositories, setRepositories] = useState<IRepository[]>([])
 
     useEffect(() => {
         fetch("https://api.github.com/users/EnzoVieira/repos")
