@@ -5,9 +5,9 @@ import closeImg from "../../assets/close.svg"
 import incomeImg from "../../assets/income.svg"
 import outcomeImg from "../../assets/outcome.svg"
 
-import { api } from "../../services/api"
-
 import { Container, RadioBox, TransactionTypeContainer } from "./styles"
+
+import { useTransactions } from "../../hooks/useTransactions"
 
 interface INewTransactionModalProps {
   isOpen: boolean
@@ -15,17 +15,24 @@ interface INewTransactionModalProps {
 }
 
 export const NewTransactionModal = (props: INewTransactionModalProps) => {
-  const [title, setTitle] = useState("")
-  const [value, setValue] = useState(0)
-  const [category, setCategory] = useState("")
-  const [type, setType] = useState("deposit")
+  const { createTransaction } = useTransactions()
 
-  const handleCreateNewTransaction = (event: FormEvent) => {
+  const [title, setTitle] = useState("")
+  const [amount, setAmount] = useState(0)
+  const [category, setCategory] = useState("")
+  const [type, setType] = useState<"deposit" | "withdraw">("deposit")
+
+  const handleCreateNewTransaction = async (event: FormEvent) => {
     event.preventDefault()
 
-    const data = { title, value, category, type }
+    await createTransaction({ title, amount, category, type })
 
-    api.post("/transactions", data)
+    setTitle("")
+    setAmount(0)
+    setCategory("")
+    setType("deposit")
+
+    props.onRequestClose()
   }
 
   return (
@@ -34,8 +41,8 @@ export const NewTransactionModal = (props: INewTransactionModalProps) => {
       overlayClassName="react-modal-overlay"
       className="react-modal-content"
     >
-      <button 
-        type="button" 
+      <button
+        type="button"
         onClick={props.onRequestClose}
         className="react-modal-close"
       >
@@ -43,23 +50,23 @@ export const NewTransactionModal = (props: INewTransactionModalProps) => {
       </button>
 
       <Container onSubmit={handleCreateNewTransaction}>
-        <h2>New Transaciton</h2>
+        <h2>New Transaction</h2>
 
-        <input 
-          placeholder="Title" 
+        <input
+          placeholder="Title"
           value={title}
-          onChange={event => setTitle(event.target.value)}
+          onChange={(event) => setTitle(event.target.value)}
         />
 
-        <input 
-          type="number" 
-          placeholder="Value" 
-          value={value}
-          onChange={event => setValue(Number(event.target.value))}
+        <input
+          type="number"
+          placeholder="amount"
+          value={amount}
+          onChange={(event) => setAmount(Number(event.target.value))}
         />
 
         <TransactionTypeContainer>
-          <RadioBox 
+          <RadioBox
             type="button"
             onClick={() => setType("deposit")}
             isActive={type === "deposit"}
@@ -69,7 +76,7 @@ export const NewTransactionModal = (props: INewTransactionModalProps) => {
             <span>Income</span>
           </RadioBox>
 
-          <RadioBox 
+          <RadioBox
             type="button"
             onClick={() => setType("withdraw")}
             isActive={type === "withdraw"}
@@ -80,15 +87,13 @@ export const NewTransactionModal = (props: INewTransactionModalProps) => {
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input 
-          placeholder="Category" 
+        <input
+          placeholder="Category"
           value={category}
-          onChange={event => setCategory(event.target.value)}
+          onChange={(event) => setCategory(event.target.value)}
         />
 
-        <button type="submit">
-          Create
-        </button>
+        <button type="submit">Create</button>
       </Container>
     </Modal>
   )
