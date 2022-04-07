@@ -50,24 +50,18 @@ git clone https://github.com/EnzoVieira/Ignite-ReactJS.git
 2. Install packages with yarn
 
 ```sh
-yarn
+cd dtmoney/ && yarn
 ```
 
 or with npm
 
 ```sh
-npm install
+cd dtmoney/ && npm install
 ```
 
 ## Usage
 
-Go to the project with
-
-```sh
-cd dtmoney/
-```
-
-And run it with yarn
+Once you already into `/dtmoney` folder, you can run it with yarn
 
 ```sh
 yarn start
