@@ -1,0 +1,21 @@
+{
+  "id": "1abf1435-f759-4b3a-962b-c2953055c94c",
+  "uid": "cum-dolores-enim",
+  "type": "custom-post-type",
+  "data": {
+    "title": [
+      {
+        "type": "heading1",
+        "text": "Reintermediate dynamic applications",
+        "spans": []
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Adipisicing officia irure nostrud ipsum anim commodo est. Ullamco aliquip mollit duis laboris cupidatat adipisicing cupidatat pariatur ex enim ex fugiat in qui proident.",
+        "spans": []
+      }
+    ]
+  }
+}
